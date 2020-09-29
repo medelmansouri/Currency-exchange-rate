@@ -18,6 +18,21 @@
         android:layout_height="match_parent"
         tools:context=".ui.MainActivity">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:currencies="@{viewmodel.exchangeRateByCurrency}"
+            app:layout_constraintBottom_toTopOf="@+id/btn"
+            />
 
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_main"
+            android:text="click Here"
+            android:onClick="@{v -> viewmodel.getCurrencies()}"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
