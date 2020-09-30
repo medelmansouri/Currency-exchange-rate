@@ -44,8 +44,8 @@ public class CurrencyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Pair<Currency,String> currency = currencyRates.get(position);
         RecyclerViewViewHolder viewHolder= (RecyclerViewViewHolder) holder;
 
-        viewHolder.txtView_title.setText(currency.first.name());
-        viewHolder.txtView_description.setText(currency.second);
+        viewHolder.currencyCode.setText(currency.first.name());
+        viewHolder.currencyRate.setText(currency.second);
     }
 
     @Override
@@ -54,15 +54,15 @@ public class CurrencyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     class RecyclerViewViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgView_icon;
-        TextView txtView_title;
-        TextView txtView_description;
+        ImageView currencyImage;
+        TextView currencyCode;
+        TextView currencyRate;
 
         public RecyclerViewViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgView_icon = itemView.findViewById(R.id.imgView_icon);
-            txtView_title = itemView.findViewById(R.id.txtView_title);
-            txtView_description = itemView.findViewById(R.id.txtView_description);
+            currencyCode = itemView.findViewById(R.id.currency);
+            currencyRate = itemView.findViewById(R.id.currency_rate);
+            currencyImage = itemView.findViewById(R.id.currency_image);
         }
     }
     /**
