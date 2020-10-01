@@ -1,9 +1,6 @@
 package com.chalenge.exchangerate.ui.common;
 
 import android.app.Activity;
-import android.content.Context;
-
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 
@@ -47,9 +44,4 @@ public abstract class BaseFragment extends Fragment {
         return true;
     }
 
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-    }
 }

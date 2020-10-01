@@ -15,9 +15,13 @@ import com.chalenge.exchangerate.data.model.FragmentCall;
 import com.chalenge.exchangerate.data.repositories.FragmentRepository;
 import com.chalenge.exchangerate.databinding.ActivityMainBinding;
 import com.chalenge.exchangerate.ui.common.BaseFragment;
+import com.chalenge.exchangerate.ui.currencydetails.CurrencyDetailsFragment;
 import com.chalenge.exchangerate.ui.currencylist.CurrencyListFragment;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int FRAGMENT_NUMBER_1 = 1;
+    private static final int FRAGMENT_NUMBER_2 = 2;
+
     private MainActivityViewModel viewModel;
 
     @Override
@@ -30,27 +34,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     public void onBackPressed() {
         int fragmentsCount = getSupportFragmentManager().getBackStackEntryCount();
-        if (fragmentsCount == 1) {
+        if (fragmentsCount == FRAGMENT_NUMBER_1) {
             finish();
-        } else if (fragmentsCount > 1) {
+        } else if (fragmentsCount > FRAGMENT_NUMBER_2) {
             getSupportFragmentManager().popBackStackImmediate();
         } else {
             super.onBackPressed();
@@ -78,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         switch (fragmentCall.getFragmentName()) {
             case CurrencyListFragment.FRAGMENT_ID:
                 fragment = CurrencyListFragment.newInstance();
+                break;
+            case CurrencyDetailsFragment.FRAGMENT_ID:
+                fragment = CurrencyDetailsFragment.newInstance(fragmentCall.getArguments());
                 break;
             default:
                 Log.e("MainActivity", "Request of an unknown fragment id:" + fragmentCall.getFragmentName());

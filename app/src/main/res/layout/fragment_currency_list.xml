@@ -33,17 +33,19 @@
             >
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_list_title"
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="30dp"
                     android:adjustViewBounds="false"
                     android:cropToPadding="false"
                     android:textColor="#000000"
-                    android:textSize="16sp"
-                    tools:text="Currency :"
+                    android:textSize="20sp"
+                    android:text="@string/title_currency"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -54,16 +56,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
                     android:adjustViewBounds="false"
                     android:cropToPadding="false"
                     android:textColor="#000000"
-                    android:textSize="16sp"
-                    tools:text="USD >"
+                    android:textSize="20sp"
+                    android:background="@drawable/bg_btn_base_currency"
+                    android:text="@{viewmodel.baseCurrency}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="30dp"
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
 
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
