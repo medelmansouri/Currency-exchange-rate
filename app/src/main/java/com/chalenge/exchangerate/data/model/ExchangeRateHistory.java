@@ -2,7 +2,9 @@ package com.chalenge.exchangerate.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.SortedMap;
 
 public class ExchangeRateHistory {
 
@@ -16,7 +18,7 @@ public class ExchangeRateHistory {
     Currency baseCurrency;
 
     @SerializedName("rates")
-    Map<String, Map<Currency, String>> rates;
+    SortedMap<String, Map<Currency, String>> rates;
 
     public String getStartDate() {
         return startDate;
@@ -42,11 +44,13 @@ public class ExchangeRateHistory {
         this.baseCurrency = baseCurrency;
     }
 
-    public Map<String, Map<Currency, String>> getRates() {
+    public SortedMap<String, Map<Currency, String>> getRates() {
         return rates;
     }
 
-    public void setRates(Map<String, Map<Currency, String>> rates) {
-        this.rates = rates;
+    public void setRates(SortedMap<String, Map<Currency, String>> rates) {
+        if(rates instanceof LinkedHashMap) {
+            this.rates = rates;
+        }
     }
 }

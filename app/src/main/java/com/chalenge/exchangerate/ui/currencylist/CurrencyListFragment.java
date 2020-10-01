@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +20,8 @@ import com.chalenge.exchangerate.utils.CurrencyAdapter;
 public class CurrencyListFragment extends BaseFragment {
 
     public static final String FRAGMENT_ID = "CurrencyListFragment";
-
+    public static final String  CURRENCY_NAME = "CURRENCY_NAME";
+    public static final String  CURRENCY_VALUE = "CURRENCY_VALUE";
     private CurrencyListViewModel mViewModel;
 
 
@@ -38,12 +38,6 @@ public class CurrencyListFragment extends BaseFragment {
     }
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,19 +45,19 @@ public class CurrencyListFragment extends BaseFragment {
         FragmentCurrencyListBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_currency_list, container, false);
         mViewModel = ViewModelProviders.of(this).get(CurrencyListViewModel.class);
         binding.setViewmodel(mViewModel);
-        mViewModel.exchangeRateByCurrency.observe(this, exchangeRate -> {});
-        CurrencyAdapter currencyAdapter = new CurrencyAdapter(getActivity());
-        //TODO
-        currencyAdapter.setItemClickListener(v -> Toast.makeText(getActivity(), "To do", Toast.LENGTH_SHORT).show());
+        CurrencyAdapter currencyAdapter = new CurrencyAdapter(getActivity(),item ->
+            mViewModel.navigateToCurrencyHistory(item.first));
         binding.rvMain.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.rvMain.setAdapter(currencyAdapter);
+        mViewModel.exchangeRateByCurrency.observe(this, exchangeRate -> {});
         binding.setLifecycleOwner(this);
 
         return binding.getRoot();
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public boolean addToBackstack() {
+        return true;
     }
+
 }

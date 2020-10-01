@@ -1,6 +1,7 @@
 package com.chalenge.exchangerate.data.model;
 
-import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.SortedMap;
 
 public class ExchangeRate {
 
@@ -8,7 +9,7 @@ public class ExchangeRate {
 
     private String date;
 
-    private Map<Currency,String> rates;
+    private SortedMap<Currency,String> rates;
 
     public String getBase() {
         return base;
@@ -26,11 +27,13 @@ public class ExchangeRate {
         this.date = date;
     }
 
-    public Map<Currency, String> getRates() {
+    public SortedMap<Currency, String> getRates() {
         return rates;
     }
 
-    public void setRates(Map<Currency, String> rates) {
-        this.rates = rates;
+    public void setRates(SortedMap<Currency, String> rates) {
+        if(rates instanceof LinkedHashMap) {
+            this.rates = rates;
+        }
     }
 }

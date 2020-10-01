@@ -24,10 +24,8 @@ public class ApiRepository {
         return apiDataSource.requestExchangeRates(base);
     }
 
-    public MutableLiveData<ExchangeRateHistory> getExchangeRateHistoryLiveData(String startAt,
-                                                                               String endAt,
-                                                                               String symbols,
-                                                                               String base) {
+    public MutableLiveData<ExchangeRateHistory> getExchangeRateHistoryLiveData(String startAt, String endAt,
+                                                                               String symbols, String base) {
         return apiDataSource.requestExchangeRatesHistory(startAt,endAt,symbols,base);
     }
 }

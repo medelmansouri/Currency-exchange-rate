@@ -16,17 +16,19 @@ import com.chalenge.exchangerate.data.model.Currency;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 
 
 public class CurrencyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Activity context;
     private List<Pair<Currency, String>> currencyRates;
-    private View.OnClickListener mOnClickListener;
+    private final OnItemClickListener listeners;
 
-    public CurrencyAdapter(Activity context) {
+    public CurrencyAdapter(Activity context,OnItemClickListener listener) {
         this.context = context;
-        this.currencyRates = new ArrayList<Pair<Currency, String>>();
+        this.currencyRates = new ArrayList<>();
+        listeners = listener;
     }
 
 
@@ -34,18 +36,17 @@ public class CurrencyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View rootView = LayoutInflater.from(context).inflate(R.layout.item,parent,false);
-        rootView.setOnClickListener(mOnClickListener);
         return new RecyclerViewViewHolder(rootView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
         Pair<Currency,String> currency = currencyRates.get(position);
         RecyclerViewViewHolder viewHolder= (RecyclerViewViewHolder) holder;
 
         viewHolder.currencyCode.setText(currency.first.name());
         viewHolder.currencyRate.setText(currency.second);
+        viewHolder.bind(currencyRates.get(position), listeners);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class CurrencyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return currencyRates.size();
     }
 
-    class RecyclerViewViewHolder extends RecyclerView.ViewHolder {
+    static class RecyclerViewViewHolder extends RecyclerView.ViewHolder {
         ImageView currencyImage;
         TextView currencyCode;
         TextView currencyRate;
@@ -64,13 +65,16 @@ public class CurrencyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             currencyRate = itemView.findViewById(R.id.currency_rate);
             currencyImage = itemView.findViewById(R.id.currency_image);
         }
+        public void bind(final Pair<Currency, String> item, final OnItemClickListener listener) {
+            itemView.setOnClickListener(view -> listener.onItemClick(item));
+        }
     }
     /**
      * Updates the content of the list.
      *
      * @param models the new list
      */
-    public void replaceAll(Map<Currency,String> models) {
+    public void replaceAll(SortedMap<Currency,String> models) {
         currencyRates.clear();
         for (Map.Entry<Currency, String> entry : models.entrySet()) {
             currencyRates.add(new Pair<>(entry.getKey(), entry.getValue()));
@@ -78,7 +82,7 @@ public class CurrencyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyDataSetChanged();
     }
 
-    public void setItemClickListener(View.OnClickListener listener){
-        this.mOnClickListener = listener;
+    public interface OnItemClickListener {
+        void onItemClick(Pair<Currency, String> item);
     }
 }

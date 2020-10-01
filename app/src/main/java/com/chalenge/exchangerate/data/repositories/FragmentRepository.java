@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.chalenge.exchangerate.data.model.FragmentCall;
 
-public class FragmentRepository {
+public final class FragmentRepository {
 
     // SINGLETON
     private static final FragmentRepository ourInstance = new FragmentRepository();
